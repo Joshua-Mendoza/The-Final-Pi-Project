@@ -22,11 +22,11 @@ class Maze:
        x = 0
        y = 0
        for i in range(0, self.M * self.N):
-           if self.maze[ x + (y * self.M) ] == 1:
+           if self.maze[x + (y * self.M)] == 1:
                display_surf.blit(image_surf, ( x * 44 , y * 44))
  
            x = x + 1
-           if x &gt; self.M-1:
+           if x >; self.M-1:
                x = 0 
                y = y + 1
                   
