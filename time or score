@@ -1,0 +1,28 @@
+##time/score
+import time
+
+score = 0
+
+start = time.time()
+
+##the game goes in this space
+
+stop = time.time()
+
+time = stop - start
+
+if (time < 60):
+    score = 20
+    print score
+elif (time < 75):
+    score = 15
+    print score
+elif (time < 90):
+    score = 10
+    print score
+elif (time < 105):
+    score = 5
+    print score
+else:
+    score = "You suck"
+    print score
