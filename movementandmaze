@@ -131,26 +131,27 @@ root.bind("d", dmove)
 
 def generateMaze1(n):
     timer = 1
-    while n is True:
-        sleep(1)
-        timer += 1
+    #while n is True:
+    sleep(1)
+    timer += 1
+    color = "white"
         # x1, y1, x2, y2
-        if timer % 2 == 0.0:
-            color = "gray45"
-            canvas.update()
-            sleep(3)
-        else:
-            sleep(1)
-            color = "white"
-            canvas.update()
-        line1 = Lines(canvas, 300, 150, 300, 500, color) # right of sprite
-        line2 = Lines(canvas, 400, 50, 400, 500, color) # left of sprite
-        line3 = Lines(canvas, 225, 150, 300, 150, color)
-        line4 = Lines(canvas, 5, 50, 400, 50, color)
-        line5 = Lines(canvas, 225, 300, 225, 150, color)
-        line6 = Lines(canvas, 150, 300, 225, 300, color)
-        line7 = Lines(canvas, 150, 300, 150, 150, color)
-        line8 = Lines(canvas, 5, 150, 150, 150, color)
+##        if timer % 2 == 0.0:
+##            color = "gray45"
+##            canvas.update()
+##            sleep(3)
+##        else:
+##            sleep(1)
+##            color = "white"
+##            canvas.update()
+    line1 = Lines(canvas, 300, 150, 300, 500, color) # right of sprite
+    line2 = Lines(canvas, 400, 50, 400, 500, color) # left of sprite
+    line3 = Lines(canvas, 225, 150, 300, 150, color)
+    line4 = Lines(canvas, 5, 50, 400, 50, color)
+    line5 = Lines(canvas, 225, 300, 225, 150, color)
+    line6 = Lines(canvas, 150, 300, 225, 300, color)
+    line7 = Lines(canvas, 150, 300, 150, 150, color)
+    line8 = Lines(canvas, 5, 150, 150, 150, color)
 
 generateMaze1(True)
 
