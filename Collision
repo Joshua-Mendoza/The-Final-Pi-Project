@@ -1,0 +1,18 @@
+# will go inside of JWoot's maze and movement
+
+
+#find whether coords of self are overlapping coords of other
+def Overlap(self, other):
+    collision = canvas.find_overlapping(other.x1, other.x2, other.y1, other.y2)
+
+###could be useful
+##def Enclosed(self, other):
+##    enclosed = canvas.find_enclosed(other)
+##
+###could provide a border of some sort instead
+##def Closest(self, other):
+##    closest = canvas.find_closest(other)
+
+def Collision(self, other)
+#    if Overlap(self, other) == (self.x1, self.x2, self.y1, self.y2):
+        # then... push back.. or return to previosu cordinate recorded... in Josh's recorder.
