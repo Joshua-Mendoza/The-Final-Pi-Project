@@ -1,10 +1,10 @@
-# will go inside of JWoot's maze and movement
-
-
-#find whether coords of self are overlapping coords of other
-def Overlap(self, other):
-    collision = canvas.find_overlapping(other.x1, other.x2, other.y1, other.y2)
-
+### will go inside of JWoot's maze and movement
+##
+##
+###find whether coords of self are overlapping coords of other
+##def Overlap(self, other):
+##    collision = canvas.find_overlapping(other.x1, other.x2, other.y1, other.y2)
+##
 ###could be useful
 ##def Enclosed(self, other):
 ##    enclosed = canvas.find_enclosed(other)
@@ -12,7 +12,219 @@ def Overlap(self, other):
 ###could provide a border of some sort instead
 ##def Closest(self, other):
 ##    closest = canvas.find_closest(other)
+##
+##def Collision(self, other)
+##    if Overlap(self, other) == (self.x1, self.x2, self.y1, self.y2):
+##        # then... push back.. or return to previosu cordinate recorded... in Josh's recorder.
 
-def Collision(self, other)
-#    if Overlap(self, other) == (self.x1, self.x2, self.y1, self.y2):
-        # then... push back.. or return to previosu cordinate recorded... in Josh's recorder.
+
+from Tkinter import *
+global pos
+global move
+global S_SPD
+global COUNT_LEN
+
+class Sprite:
+    def __init__(self, canvas, x1, y1, x2, y2):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+        self.canvas = canvas
+        self.sprite = canvas.create_oval(self.x1, self.y1, self.x2, self.y2, fill="white", outline="grey")
+
+    def up(self):
+        pos = canvas.coords(self.sprite)
+        counter = 0
+        while counter < COUNT_LEN:
+            # move([item], [x speed], [y speed])
+            self.canvas.move(self.sprite, 0, -S_SPD)
+            self.canvas.after(20)
+            self.canvas.update()
+            counter += 1
+        print "Your position is {}.".format(pos)
+
+    def down(self):
+        pos = canvas.coords(self.sprite)
+        counter = 0
+        while counter < COUNT_LEN:
+            # move([item], [x speed], [y speed])
+            self.canvas.move(self.sprite, 0, S_SPD)
+            self.canvas.after(20)
+            self.canvas.update()
+            counter += 1
+        print "Your position is {}.".format(pos)
+
+    def left(self):
+        pos = canvas.coords(self.sprite)
+        counter = 0
+        while counter < COUNT_LEN:
+            # move([item], [x speed], [y speed])
+            self.canvas.move(self.sprite, -S_SPD, 0)
+            self.canvas.after(20)
+            self.canvas.update()
+            counter += 1
+        print "Your position is {}.".format(pos)
+
+    def right(self):
+        pos = canvas.coords(self.sprite)
+        counter = 0
+        while counter < COUNT_LEN:
+            # move([item], [x speed], [y speed])
+            self.canvas.move(self.sprite, S_SPD, 0)
+            self.canvas.after(20)
+            self.canvas.update()
+            counter += 1
+        print "Your position is {}.".format(pos)
+
+class Rect:
+    def __init__(self, canvas, x1, y1, x2, y2, color):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+        self.canvas = canvas
+        self.rect = canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, fill = color)
+    def overlap(self, x1, y1, x2, y2):
+        # returns overlapping object ids in ovals dict
+        overlaps = [] # make a list to hold overlap objects
+        c_object = master.find_overlapping(x1, y1, x2, y2)
+        for k,v in ovals.items():  # iterate over ovals dict
+            if v in c_object:      # if the value of a key is in the overlap tuple
+                oval_list.append(k)# add the key to the list
+        if overlaps.len > 0:
+            return True
+        else:
+            return False
+    
+
+master = Tk()
+canvas = Canvas(master, width=380, height=380, bg="midnight blue")
+canvas.pack()
+
+
+
+############ BASIC BORDERS ############
+##w.create_rectangle(1, 1, 20, 380, fill="black") #left
+##w.create_rectangle(1, 1, 380, 20, fill="black") #top
+##w.create_rectangle(380, 380, 360, 1, fill="black") #right
+##w.create_rectangle(380, 380, 1, 360, fill="black") #bottom
+
+
+
+
+############ ARIES ############
+def generateMaze(num, display):
+    if (num == 1) and (display == True):
+        #aries
+        rect1 = Rect(canvas, 120, 1, 140, 20, "lemon chiffon")
+        rect2 = Rect(canvas, 260, 360, 280, 380, "light goldenrod")
+        rect3 = Rect(canvas, 1, 1, 20, 380, "black")
+        rect4 = Rect(canvas, 1, 1, 20, 380, "black")
+        rect5 = Rect(canvas, 380, 380, 360, 1, "black")
+        rect6 = Rect(canvas, 1, 1, 120, 20, "black")
+        rect7 = Rect(canvas, 140, 1, 380, 20, "black")
+        rect8 = Rect(canvas, 380, 380, 280, 360, "black")
+        rect9 = Rect(canvas, 260, 380, 1, 360, "black")
+        rect10 = Rect(canvas, 200, 1, 220, 60, "black")
+        rect11 = Rect(canvas, 200, 60, 340, 40, "black")
+        rect12 = Rect(canvas, 320, 80, 340, 160, "black")
+        rect13 = Rect(canvas, 320, 160, 380, 140, "black")
+        rect14 = Rect(canvas, 280, 80, 320, 100, "black")
+        rect15 = Rect(canvas, 240, 140, 320, 120, "black")
+        rect16 = Rect(canvas, 240, 80, 260, 120, "black")
+        rect17 = Rect(canvas, 320, 180, 340, 260, "black")
+        rect18 = Rect(canvas, 320, 280, 340, 360, "black")
+        rect19 = Rect(canvas, 260, 280, 320, 300, "black")
+        rect20 = Rect(canvas, 260, 240, 280, 280, "black")
+        rect21 = Rect(canvas, 280, 220, 300, 260, "black")
+        rect22 = Rect(canvas, 200, 120, 220, 180, "black")
+        rect23 = Rect(canvas, 220, 180, 300, 160, "black")
+        rect24 = Rect(canvas, 300, 160, 280, 200, "black")
+        rect25 = Rect(canvas, 240, 180, 260, 220, "black")
+        rect26 = Rect(canvas, 220, 200, 240, 280, "black")
+        rect27 = Rect(canvas, 200, 240, 220, 280, "black")
+        rect28 = Rect(canvas, 140, 260, 200, 280, "black")
+        
+generateMaze(1, True)
+sprite1 = Sprite(canvas, 120, 1, 140, 20)
+S_SPD = 10
+COUNT_LEN = 2
+
+
+####################################
+# movement
+# default 'move' position
+move = "start"
+def wmove(event):
+    c = 0
+    if Rect.overlap == True:
+        while c < 1:
+            sprite1.down()
+            move = prev_move
+            c += 1
+        print "ya can't do that boi"
+    else:
+        while c < 1:
+            sprite1.up()
+            prev_move = move
+            move = "w"
+            c += 1
+        print "ya just moved up"
+
+def amove(event):
+    c = 0
+    if Rect.overlap == True:
+        while c < 1:
+            sprite1.right()
+            move = prev_move
+            c += 1
+        print "ya can't do that boi"
+    else:
+        while c < 1:
+            sprite1.left()
+            prev_move = move
+            move = "a"
+            c += 1
+        print "ya just moved left"
+
+def smove(event):
+    c = 0
+    if Rect.overlap == True:
+        while c < 1:
+            sprite1.up()
+            move = prev_move
+            c += 1
+        print "ya can't do that boi"
+    else:
+        while c < 1:
+            sprite1.down()
+            prev_move = move
+            move = "s"
+            c += 1
+        print "ya just moved down"
+
+def dmove(event):
+    c = 0
+    if Rect.overlap == True:
+        while c < 1:
+            sprite1.left()
+            move = prev_move
+            c += 1
+        print "ya can't do that boi"
+    else:
+        while c < 1:
+            sprite1.right()
+            prev_move = move
+            move = "d"
+            c += 1
+        print "ya just moved right"
+####################################
+# binding movement to wasd keys
+master.bind("w", wmove)
+master.bind("a", amove)
+master.bind("s", smove)
+master.bind("d", dmove)
+
+
+canvas.mainloop()
