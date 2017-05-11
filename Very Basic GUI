@@ -1,9 +1,0 @@
-### very basic code to get the maze image to show up ###
-
-from Tkinter import *
-
-window = Tk()
-img = PhotoImage(file = "This Is The Maze.gif")
-w = Label(window, image = img).pack(side = "right")
-
-window.mainloop()
