@@ -1,0 +1,634 @@
+from Tkinter import *
+
+###################
+#time/score
+import time
+global score
+score = 0
+start = time.time()
+###################
+
+
+global pos
+global move
+global prev_move
+global S_SPD
+global COUNT_LEN
+global index
+global rect
+
+move = "move"
+prev_move = "move"
+index = 52
+rect = range(index)
+
+class Sprite:
+    def __init__(self, canvas, x1, y1, x2, y2):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+        self.canvas = canvas
+        self.sprite = canvas.create_oval(self.x1, self.y1, self.x2, self.y2, fill="white", outline="grey")
+
+    def up(self):
+        pos = canvas.coords(self.sprite)
+        counter = 0
+        while counter < COUNT_LEN:
+            # move([item], [x speed], [y speed])
+            self.canvas.move(self.sprite, 0, -S_SPD)
+            self.canvas.after(20)
+            self.canvas.update()
+            counter += 1
+        print "Your position is {}.".format(pos)
+
+    def down(self):
+        pos = canvas.coords(self.sprite)
+        counter = 0
+        while counter < COUNT_LEN:
+            # move([item], [x speed], [y speed])
+            self.canvas.move(self.sprite, 0, S_SPD)
+            self.canvas.after(20)
+            self.canvas.update()
+            counter += 1
+        print "Your position is {}.".format(pos)
+
+    def left(self):
+        pos = canvas.coords(self.sprite)
+        counter = 0
+        while counter < COUNT_LEN:
+            # move([item], [x speed], [y speed])
+            self.canvas.move(self.sprite, -S_SPD, 0)
+            self.canvas.after(20)
+            self.canvas.update()
+            counter += 1
+        print "Your position is {}.".format(pos)
+
+    def right(self):
+        pos = canvas.coords(self.sprite)
+        counter = 0
+        while counter < COUNT_LEN:
+            # move([item], [x speed], [y speed])
+            self.canvas.move(self.sprite, S_SPD, 0)
+            self.canvas.after(20)
+            self.canvas.update()
+            counter += 1
+        print "Your position is {}.".format(pos)
+
+class Rect:
+    def __init__(self, canvas, x1, y1, x2, y2, color):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+        self.canvas = canvas
+        self.rect = canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, fill = color)
+        
+    def overlap(self, other):
+        overlaps = []
+        c_object = self.canvas.find_overlapping(other.x1, other.y1, other.x2, other.y2)
+        overlaps.append(c_object)
+        if len(overlaps) > 0:
+            return True
+        else:
+            return False
+    
+
+master = Tk()
+canvas = Canvas(master, width=380, height=380, bg="midnight blue")
+canvas.pack()
+
+############ BASIC BORDERS ############
+##.create_rectangle(1, 1, 20, 380, fill="black") #left
+##.create_rectangle(1, 1, 380, 20, fill="black") #top
+##.create_rectangle(380, 380, 360, 1, fill="black") #right
+##.create_rectangle(380, 380, 1, 360, fill="black") #bottom
+#######################
+
+
+def generateAries():
+    rect[0] = Rect(canvas, 120, 1, 140, 20, "lemon chiffon")
+    rect[1] = Rect(canvas, 260, 360, 280, 380, "light goldenrod")
+    rect[2] = Rect(canvas, 1, 1, 20, 380, "black")
+    rect[3] = Rect(canvas, 1, 1, 20, 380, "black")
+    rect[4] = Rect(canvas, 380, 380, 360, 1, "black")
+    rect[5] = Rect(canvas, 1, 1, 120, 20, "black")
+    rect[6] = Rect(canvas, 140, 1, 380, 20, "black")
+    rect[7] = Rect(canvas, 380, 380, 280, 360, "black")
+    rect[8] = Rect(canvas, 260, 380, 1, 360, "black")
+    rect[9] = Rect(canvas, 200, 1, 220, 60, "black")
+    rect[10] = Rect(canvas, 200, 60, 340, 40, "black")
+    rect[11] = Rect(canvas, 320, 80, 340, 160, "black")
+    rect[12] = Rect(canvas, 320, 160, 380, 140, "black")
+    rect[13] = Rect(canvas, 280, 80, 320, 100, "black")
+    rect[14] = Rect(canvas, 240, 140, 320, 120, "black")
+    rect[15] = Rect(canvas, 240, 80, 260, 120, "black")
+    rect[16] = Rect(canvas, 320, 180, 340, 260, "black")
+    rect[17] = Rect(canvas, 320, 280, 340, 360, "black")
+    rect[18] = Rect(canvas, 260, 280, 320, 300, "black")
+    rect[19] = Rect(canvas, 260, 240, 280, 280, "black")
+    rect[20] = Rect(canvas, 280, 220, 300, 260, "black")
+    rect[21] = Rect(canvas, 200, 120, 220, 180, "black")
+    rect[22] = Rect(canvas, 220, 180, 300, 160, "black")
+    rect[23] = Rect(canvas, 300, 160, 280, 200, "black")
+    rect[24] = Rect(canvas, 240, 180, 260, 220, "black")
+    rect[25] = Rect(canvas, 220, 200, 240, 280, "black")
+    rect[26] = Rect(canvas, 200, 240, 220, 280, "black")
+    rect[27] = Rect(canvas, 140, 260, 200, 280, "black")
+    rect[28] = Rect(canvas, 180, 340, 200, 360, "black")
+    rect[29] = Rect(canvas, 240, 320, 260, 360, "black")
+    rect[30] = Rect(canvas, 220, 320, 300, 340, "black")
+    rect[31] = Rect(canvas, 140, 300, 240, 320, "black")
+    rect[32] = Rect(canvas, 100, 320, 160, 340, "black")
+    rect[33] = Rect(canvas, 20, 320, 80, 340, "black")
+    rect[34] = Rect(canvas, 140, 220, 160, 260, "black")
+    rect[35] = Rect(canvas, 120, 220, 180, 240, "black")
+    rect[36] = Rect(canvas, 160, 200, 200, 220, "black")
+    rect[37] = Rect(canvas, 160, 80, 180, 200, "black")
+    rect[38] = Rect(canvas, 120, 80, 140, 220, "black")
+    rect[39] = Rect(canvas, 40, 80, 140, 100, "black")
+    rect[40] = Rect(canvas, 40, 40, 60, 80, "black")
+    rect[41] = Rect(canvas, 60, 40, 180, 60, "black")
+    rect[42] = Rect(canvas, 120, 200, 80, 220, "black")
+    rect[43] = Rect(canvas, 200, 80, 240, 100, "black")
+    rect[44] = Rect(canvas, 40, 220, 100, 240, "black")
+    rect[45] = Rect(canvas, 40, 160, 100, 180, "black")
+    rect[46] = Rect(canvas, 80, 120, 100, 160, "black")
+    rect[47] = Rect(canvas, 20, 120, 80, 140, "black")
+    rect[48] = Rect(canvas, 40, 180, 60, 220, "black")
+    rect[49] = Rect(canvas, 40, 260, 60, 300, "black")
+    rect[50] = Rect(canvas, 100, 260, 120, 300, "black")
+    rect[51] = Rect(canvas, 60, 260, 100, 280, "black")
+
+def finishedAries():
+    generateAries()
+    hili1 = Rect(canvas, 120, 20, 200, 40, "light steel blue")
+    hili2 = Rect(canvas, 180, 40, 200, 120, "light steel blue")
+    hili3 = Rect(canvas, 200, 100, 240, 120, "light steel blue")
+    hili4 = Rect(canvas, 220, 120, 240, 160, "light steel blue")
+    hili5 = Rect(canvas, 240, 140, 320, 160, "light steel blue")
+    hili6 = Rect(canvas, 300, 160, 320, 200, "light steel blue")
+    hili7 = Rect(canvas, 260, 200, 300, 220, "light steel blue")
+    hili8 = Rect(canvas, 240, 220, 280, 240, "light steel blue")
+    hili9 = Rect(canvas, 240, 240, 260, 300, "light steel blue")
+    hili10 = Rect(canvas, 260, 300, 300, 320, "light steel blue")
+    hili11 = Rect(canvas, 300, 300, 320, 340, "light steel blue")
+    hili12 = Rect(canvas, 260, 340, 300, 360, "light steel blue")
+    hili13 = Rect(canvas, 300, 200, 320, 220, "cornsilk")
+    hili14 = Rect(canvas, 240, 300, 260, 320, "antique white")
+    hili15 = Rect(canvas, 300, 340, 320, 360, "ivory")
+
+def generateCassiopeia():
+    rect[1] = Rect(canvas, 120, 1, 140, 20, "lemon chiffon")
+    rect[2] = Rect(canvas, 360, 260, 380, 280, "light goldenrod")
+    rect[3] = Rect(canvas, 1, 1, 20, 380, "black")
+    rect[4] = Rect(canvas, 380, 380, 1, 360, "black")
+    rect[5] = Rect(canvas, 20, 1, 120, 20, "black")
+    rect[6] = Rect(canvas, 140, 1, 360, 20, "black")
+    rect[7] = Rect(canvas, 360, 280, 380, 360, "black")
+    rect[8] = Rect(canvas, 360, 260, 380, 1, "black")
+    rect[9] = Rect(canvas, 260, 20, 280, 60, "black")
+    rect[10] = Rect(canvas, 20, 40, 60, 60, "black")
+    rect[11] = Rect(canvas, 80, 40, 120, 60, "black")
+    rect[12] = Rect(canvas, 140, 40, 240, 60, "black")
+    rect[13] = Rect(canvas, 140, 60, 160, 80, "black")
+    rect[14] = Rect(canvas, 100, 60, 120, 220, "black")
+    rect[15] = Rect(canvas, 280, 40, 340, 60, "black")
+    rect[16] = Rect(canvas, 40, 80, 100, 100, "black")
+    rect[17] = Rect(canvas, 220, 80, 340, 100, "black")
+    rect[18] = Rect(canvas, 40, 100, 60, 120, "black")
+    rect[19] = Rect(canvas, 120, 100, 160, 120, "black")
+    rect[20] = Rect(canvas, 180, 80, 200, 120, "black")
+    rect[21] = Rect(canvas, 20, 120, 80, 140, "black")
+    rect[22] = Rect(canvas, 180, 120, 260, 140, "black")
+    rect[23] = Rect(canvas, 280, 120, 360, 140, "black")
+    rect[24] = Rect(canvas, 140, 140, 160, 240, "black")
+    rect[25] = Rect(canvas, 240, 140, 260, 160, "black")
+    rect[26] = Rect(canvas, 280, 140, 300, 160, "black")
+    rect[27] = Rect(canvas, 40, 160, 100, 180, "black")
+    rect[28] = Rect(canvas, 160, 160, 220, 180, "black")
+    rect[29] = Rect(canvas, 240, 160, 340, 180, "black")
+    rect[30] = Rect(canvas, 320, 180, 340, 260, "black")
+    rect[31] = Rect(canvas, 40, 200, 100, 220, "black")
+    rect[32] = Rect(canvas, 180, 200, 200, 240, "black")
+    rect[33] = Rect(canvas, 220, 200, 300, 220, "black")
+    rect[34] = Rect(canvas, 160, 220, 240, 240, "black")
+    rect[35] = Rect(canvas, 40, 240, 120, 260, "black")
+    rect[36] = Rect(canvas, 260, 240, 340, 260, "black")
+    rect[37] = Rect(canvas, 40, 240, 120, 260, "black")
+    rect[38] = Rect(canvas, 160, 240, 180, 300, "black")
+    rect[39] = Rect(canvas, 260, 240, 340, 260, "black")
+    rect[40] = Rect(canvas, 100, 260, 120, 300, "black")
+    rect[41] = Rect(canvas, 140, 260, 180, 280, "black")
+    rect[42] = Rect(canvas, 20, 280, 60, 300, "black")
+    rect[43] = Rect(canvas, 40, 300, 60, 320, "black")
+    rect[44] = Rect(canvas, 80, 280, 100, 320, "black")
+    rect[45] = Rect(canvas, 320, 280, 340, 320, "black")
+    rect[46] = Rect(canvas, 200, 280, 220, 320, "black")
+    rect[47] = Rect(canvas, 240, 280, 260, 320, "black")
+    rect[48] = Rect(canvas, 220, 260, 240, 300, "black")
+    rect[49] = Rect(canvas, 40, 320, 120, 340, "black")
+    rect[50] = Rect(canvas, 140, 320, 220, 340, "black")
+    rect[51] = Rect(canvas, 240, 320, 340, 340, "black")
+    rect[52] = Rect(canvas, 280, 220, 300, 300, "black")
+
+def finishedCassiopeia():
+    generateCassiopeia()
+    hili1 = Rect(canvas, 120, 20, 140, 80, "light steel blue")
+    hili2 = Rect(canvas, 140, 80, 180, 100, "light steel blue")
+    hili3 = Rect(canvas, 160, 100, 180, 120, "light steel blue")
+    hili4 = Rect(canvas, 120, 120, 160, 140, "light steel blue")
+    hili5 = Rect(canvas, 120, 140, 140, 300, "light steel blue")
+    hili6 = Rect(canvas, 140, 300, 200, 320, "light steel blue")
+    hili7 = Rect(canvas, 180, 260, 200, 300, "light steel blue")
+    hili8 = Rect(canvas, 200, 240, 220, 280, "light steel blue")
+    hili9 = Rect(canvas, 220, 240, 240, 260, "light steel blue")
+    hili10 = Rect(canvas, 240, 240, 260, 280, "light steel blue")
+    hili11 = Rect(canvas, 260, 260, 280, 320, "light steel blue")
+    hili12 = Rect(canvas, 280, 300, 320, 320, "light steel blue")
+    hili1 = Rect(canvas, 300, 260, 320, 300, "light steel blue")
+    hili1 = Rect(canvas, 320, 260, 360, 280, "light steel blue")
+    hili13 = Rect(canvas, 120, 80, 140, 100, "cornsilk")
+    hili14 = Rect(canvas, 160, 120, 180, 140, "antique white")
+    hili15 = Rect(canvas, 120, 300, 140, 320, "ivory")
+
+def generateLyra():
+    rect[1] = Rect(canvas, 80, 1, 100, 20, "lemon chiffon")
+    rect[2] = Rect(canvas, 360, 140, 380, 160, "light goldenrod")
+    rect[3] = Rect(canvas, 1, 1, 20, 380, "black")
+    rect[4] = Rect(canvas, 380, 380, 1, 360, "black")
+    rect[5] = Rect(canvas, 20, 1, 80, 20, "black")
+    rect[6] = Rect(canvas, 100, 1, 380, 20, "black")
+    rect[7] = Rect(canvas, 360, 20, 380, 140, "black")
+    rect[8] = Rect(canvas, 360, 160, 380, 360, "black")
+    rect[9] = Rect(canvas, 60, 20, 80, 60, "black")
+    rect[10] = Rect(canvas, 40, 40, 60, 180, "black")
+    rect[11] = Rect(canvas, 100, 40, 180, 60, "black")
+    rect[12] = Rect(canvas, 220, 40, 340, 60, "black")
+    rect[13] = Rect(canvas, 140, 60, 160, 100, "black")
+    rect[14] = Rect(canvas, 200, 60, 240, 80, "black")
+    rect[15] = Rect(canvas, 280, 60, 300, 100, "black")
+    rect[16] = Rect(canvas, 160, 80, 180, 100, "black")
+    rect[17] = Rect(canvas, 200, 80, 220, 100, "black")
+    rect[18] = Rect(canvas, 80, 80, 120, 100, "black")
+    rect[19] = Rect(canvas, 100, 100, 120, 140, "black")
+    rect[20] = Rect(canvas, 60, 120, 140, 140, "black")
+    rect[21] = Rect(canvas, 160, 100, 240, 120, "black")
+    rect[22] = Rect(canvas, 260, 80, 360, 100, "black")
+    rect[23] = Rect(canvas, 320, 100, 340, 140, "black")
+    rect[24] = Rect(canvas, 300, 120, 320, 140, "black")
+    rect[25] = Rect(canvas, 220, 120, 240, 140, "black")
+    rect[26] = Rect(canvas, 260, 120, 280, 200, "black")
+    rect[27] = Rect(canvas, 160, 140, 280, 160, "black")
+    rect[28] = Rect(canvas, 80, 160, 180, 180, "black")
+    rect[29] = Rect(canvas, 260, 160, 340, 180, "black")
+    rect[30] = Rect(canvas, 320, 180, 340, 200, "black")
+    rect[31] = Rect(canvas, 80, 180, 100, 220, "black")
+    rect[32] = Rect(canvas, 40, 200, 80, 220, "black")
+    rect[33] = Rect(canvas, 40, 220, 60, 280, "black")
+    rect[34] = Rect(canvas, 200, 180, 240, 220, "black")
+    rect[35] = Rect(canvas, 120, 200, 200, 220, "black")
+    rect[36] = Rect(canvas, 220, 220, 260, 240, "black")
+    rect[37] = Rect(canvas, 280, 220, 340, 240, "black")
+    rect[38] = Rect(canvas, 120, 220, 140, 260, "black")
+    rect[39] = Rect(canvas, 80, 240, 180, 260, "black")
+    rect[40] = Rect(canvas, 60, 260, 100, 280, "black")
+    rect[41] = Rect(canvas, 80, 280, 100, 300, "black")
+    rect[42] = Rect(canvas, 220, 240, 240, 280, "black")
+    rect[43] = Rect(canvas, 200, 260, 280, 280, "black")
+    rect[44] = Rect(canvas, 300, 240, 320, 320, "black")
+    rect[45] = Rect(canvas, 320, 260, 360, 280, "black")
+    rect[46] = Rect(canvas, 240, 300, 340, 320, "black")
+    rect[47] = Rect(canvas, 220, 320, 260, 340, "black")
+    rect[48] = Rect(canvas, 20, 300, 60, 320, "black")
+    rect[49] = Rect(canvas, 40, 320, 120, 340, "black")
+    rect[50] = Rect(canvas, 120, 280, 160, 300, "black")
+    rect[51] = Rect(canvas, 180, 280, 220, 300, "black")
+    rect[52] = Rect(canvas, 140, 320, 200, 340, "black")
+    rect[53] = Rect(canvas, 160, 280, 180, 320, "black")
+    rect[54] = Rect(canvas, 300, 340, 320, 360, "black")
+
+def finishedLyra():
+    generateLyra()
+    hili1 = Rect(canvas, 80, 20, 100, 80, "light steel blue")
+    hili1 = Rect(canvas, 100, 60, 140, 80, "light steel blue")
+    hili1 = Rect(canvas, 120, 80, 140, 120, "light steel blue")
+    hili1 = Rect(canvas, 140, 120, 160, 160, "light steel blue")
+    hili1 = Rect(canvas, 60, 140, 140, 160, "light steel blue")
+    hili1 = Rect(canvas, 60, 160, 80, 200, "light steel blue")
+    hili1 = Rect(canvas, 40, 180, 60, 200, "light steel blue")
+    hili1 = Rect(canvas, 20, 200, 40, 300, "light steel blue")
+    hili1 = Rect(canvas, 40, 180, 80, 200, "light steel blue")
+    hili1 = Rect(canvas, 20, 200, 40, 280, "light steel blue")
+    hili1 = Rect(canvas, 40, 280, 80, 300, "light steel blue")
+    hili1 = Rect(canvas, 60, 300, 140, 320, "light steel blue")
+    hili1 = Rect(canvas, 140, 340, 220, 360, "light steel blue")
+    hili1 = Rect(canvas, 200, 300, 220, 340, "light steel blue")
+    hili1 = Rect(canvas, 220, 280, 240, 320, "light steel blue")
+    hili1 = Rect(canvas, 240, 280, 300, 300, "light steel blue")
+    hili1 = Rect(canvas, 280, 240, 300, 280, "light steel blue")
+    hili1 = Rect(canvas, 260, 200, 340, 220, "light steel blue")
+    hili1 = Rect(canvas, 340, 140, 360, 220, "light steel blue")
+    hili1 = Rect(canvas, 140, 100, 160, 120, "cornsilk")
+    hili1 = Rect(canvas, 20, 180, 40, 200, "antique white")
+    hili1 = Rect(canvas, 120, 340, 140, 360, "ivory")
+
+def generateGemini():
+    rect[1] = Rect(canvas, 1, 320, 20, 340, "lemon chiffon")
+    rect[2] = Rect(canvas, 340, 360, 360, 380, "light goldenrod")
+    rect[3] = Rect(canvas, 1, 1, 380, 20, "black")
+    rect[4] = Rect(canvas, 380, 380, 360, 1, "black")
+    rect[5] = Rect(canvas, 340, 380, 1, 360, "black")
+    rect[6] = Rect(canvas, 1, 340, 20, 360, "black")
+    rect[7] = Rect(canvas, 1, 320, 20, 20, "black")
+    rect[8] = Rect(canvas, 120, 20, 140, 60, "black")
+    rect[9] = Rect(canvas, 40, 40, 100, 60, "black")
+    rect[10] = Rect(canvas, 160, 40, 260, 60, "black")
+    rect[11] = Rect(canvas, 280, 40, 340, 60, "black")
+    rect[12] = Rect(canvas, 40, 60, 60, 120, "black")
+    rect[13] = Rect(canvas, 80, 60, 100, 120, "black")
+    rect[14] = Rect(canvas, 20, 100, 40, 120, "black")
+    rect[15] = Rect(canvas, 160, 60, 180, 140, "black")
+    rect[16] = Rect(canvas, 240, 60, 260, 140, "black")
+    rect[17] = Rect(canvas, 200, 80, 220, 140, "black")
+    rect[18] = Rect(canvas, 220, 120, 240, 160, "black")
+    rect[19] = Rect(canvas, 120, 80, 160, 100, "black")
+    rect[20] = Rect(canvas, 120, 100, 140, 180, "black")
+    rect[21] = Rect(canvas, 40, 140, 120, 160, "black")
+    rect[22] = Rect(canvas, 40, 160, 60, 220, "black")
+    rect[23] = Rect(canvas, 60, 200, 100, 220, "black")
+    rect[24] = Rect(canvas, 80, 160, 100, 180, "black")
+    rect[25] = Rect(canvas, 320, 60, 340, 100, "black")
+    rect[26] = Rect(canvas, 340, 80, 360, 100, "black")
+    rect[27] = Rect(canvas, 280, 80, 300, 220, "black")
+    rect[28] = Rect(canvas, 300, 120, 340, 140, "black")
+    rect[29] = Rect(canvas, 320, 160, 340, 220, "black")
+    rect[30] = Rect(canvas, 340, 200, 360, 220, "black")
+    rect[31] = Rect(canvas, 320, 240, 360, 260, "black")
+    rect[32] = Rect(canvas, 320, 280, 340, 340, "black")
+    rect[33] = Rect(canvas, 340, 320, 360, 340, "black")
+    rect[34] = Rect(canvas, 160, 160, 280, 180, "black")
+    rect[35] = Rect(canvas, 160, 180, 180, 280, "black")
+    rect[36] = Rect(canvas, 120, 200, 160, 220, "black")
+    rect[37] = Rect(canvas, 120, 220, 140, 340, "black")
+    rect[38] = Rect(canvas, 40, 320, 140, 340, "black")
+    rect[39] = Rect(canvas, 40, 240, 60, 320, "black")
+    rect[40] = Rect(canvas, 60, 240, 100, 260, "black")
+    rect[41] = Rect(canvas, 80, 260, 100, 300, "black")
+    rect[42] = Rect(canvas, 160, 300, 180, 360, "black")
+    rect[43] = Rect(canvas, 180, 320, 300, 340, "black")
+    rect[44] = Rect(canvas, 200, 200, 220, 320, "black")
+    rect[45] = Rect(canvas, 180, 240, 200, 260, "black")
+    rect[46] = Rect(canvas, 220, 280, 260, 300, "black")
+    rect[47] = Rect(canvas, 280, 240, 300, 320, "black")
+    rect[48] = Rect(canvas, 240, 240, 280, 260, "black")
+    rect[49] = Rect(canvas, 240, 200, 260, 240, "black")
+
+def finishedGemini():
+    generateGemini()
+    hili1 = Rect(canvas, 20, 140, 40, 320, "light steel blue")
+    hili2 = Rect(canvas, 40, 120, 120, 140, "light steel blue")
+    hili3 = Rect(canvas, 100, 80, 120, 120, "light steel blue")
+    hili4 = Rect(canvas, 120, 60, 160, 80, "light steel blue")
+    hili5 = Rect(canvas, 140, 40, 160, 60, "light steel blue")
+    hili6 = Rect(canvas, 160, 20, 260, 40, "light steel blue")
+    hili7 = Rect(canvas, 260, 40, 280, 80, "light steel blue")
+    hili8 = Rect(canvas, 300, 80, 320, 120, "light steel blue")
+    hili9 = Rect(canvas, 320, 100, 360, 120, "light steel blue")
+    hili10 = Rect(canvas, 340, 120, 360, 140, "light steel blue")
+    hili11 = Rect(canvas, 300, 140, 340, 160, "light steel blue")
+    hili12 = Rect(canvas, 300, 160, 320, 340, "light steel blue")
+    hili13 = Rect(canvas, 320, 340, 360, 360, "light steel blue")
+    hili14 = Rect(canvas, 280, 60, 320, 80, "light steel blue")
+    hili15 = Rect(canvas, 20, 320, 40, 340, "cornsilk")
+    hili16 = Rect(canvas, 20, 120, 40, 140, "antique white")
+    hili17 = Rect(canvas, 100, 60, 120, 80, "ivory")
+    hili18 = Rect(canvas, 140, 20, 160, 40, "cornsilk")
+    hili19 = Rect(canvas, 260, 20, 280, 40, "antique white")
+    hili20 = Rect(canvas, 340, 140, 360, 160, "ivory")
+    hili21 = Rect(canvas, 300, 340, 320, 360, "cornsilk")
+
+def generatePerseus():
+    rect[1] = Rect(canvas, 360, 200, 380, 220, "lemon chiffon")
+    rect[2] = Rect(canvas, 360, 340, 380, 360, "light goldenrod")
+    rect[3] = Rect(canvas, 1, 1, 20, 380, "black")
+    rect[4] = Rect(canvas, 1, 1, 380, 20, "black")
+    rect[5] = Rect(canvas, 380, 380, 1, 360, "black")
+    rect[6] = Rect(canvas, 360, 20, 380, 200, "black")
+    rect[7] = Rect(canvas, 360, 220, 380, 340, "black")
+    rect[8] = Rect(canvas, 160, 20, 180, 40, "black")
+    rect[9] = Rect(canvas, 100, 40, 140, 60, "black")
+    rect[10] = Rect(canvas, 120, 60, 220, 80, "black")
+    rect[11] = Rect(canvas, 200, 40, 300, 60, "black")
+    rect[12] = Rect(canvas, 320, 40, 360, 60, "black")
+    rect[13] = Rect(canvas, 40, 80, 100, 100, "black")
+    rect[14] = Rect(canvas, 80, 100, 260, 120, "black")
+    rect[15] = Rect(canvas, 240, 120, 300, 140, "black")
+    rect[16] = Rect(canvas, 280, 80, 340, 100, "black")
+    rect[17] = Rect(canvas, 320, 100, 340, 120, "black")
+    rect[18] = Rect(canvas, 280, 140, 340, 160, "black")
+    rect[19] = Rect(canvas, 80, 20, 100, 60, "black")
+    rect[20] = Rect(canvas, 280, 60, 300, 80, "black")
+    rect[21] = Rect(canvas, 40, 40, 60, 80, "black")
+    rect[22] = Rect(canvas, 80, 120, 100, 180, "black")
+    rect[23] = Rect(canvas, 240, 80, 260, 100, "black")
+    rect[24] = Rect(canvas, 20, 120, 60, 140, "black")
+    rect[25] = Rect(canvas, 40, 140, 60, 180, "black")
+    rect[26] = Rect(canvas, 100, 140, 140, 160, "black")
+    rect[27] = Rect(canvas, 120, 160, 140, 180, "black")
+    rect[28] = Rect(canvas, 160, 140, 220, 160, "black")
+    rect[29] = Rect(canvas, 200, 160, 260, 180, "black")
+    rect[30] = Rect(canvas, 240, 180, 260, 260, "black")
+    rect[31] = Rect(canvas, 220, 240, 240, 300, "black")
+    rect[32] = Rect(canvas, 180, 280, 220, 300, "black")
+    rect[33] = Rect(canvas, 180, 220, 200, 280, "black")
+    rect[34] = Rect(canvas, 320, 160, 340, 200, "black")
+    rect[35] = Rect(canvas, 280, 180, 320, 200, "black")
+    rect[36] = Rect(canvas, 280, 200, 300, 280, "black")
+    rect[37] = Rect(canvas, 260, 240, 280, 260, "black")
+    rect[38] = Rect(canvas, 320, 220, 360, 240, "black")
+    rect[39] = Rect(canvas, 260, 280, 320, 300, "black")
+    rect[40] = Rect(canvas, 320, 260, 340, 320, "black")
+    rect[41] = Rect(canvas, 280, 320, 360, 340, "black")
+    rect[42] = Rect(canvas, 80, 200, 220, 220, "black")
+    rect[43] = Rect(canvas, 160, 180, 180, 200, "black")
+    rect[44] = Rect(canvas, 220, 320, 260, 340, "black")
+    rect[45] = Rect(canvas, 240, 340, 260, 360, "black")
+    rect[46] = Rect(canvas, 180, 320, 200, 360, "black")
+    rect[47] = Rect(canvas, 40, 240, 160, 260, "black")
+    rect[48] = Rect(canvas, 40, 200, 60, 260, "black")
+    rect[49] = Rect(canvas, 60, 240, 160, 260, "black")
+    rect[50] = Rect(canvas, 140, 260, 160, 340, "black")
+    rect[51] = Rect(canvas, 40, 320, 140, 340, "black")
+    rect[52] = Rect(canvas, 100, 280, 140, 300, "black")
+    rect[53] = Rect(canvas, 40, 280, 60, 320, "black")
+    rect[54] = Rect(canvas, 60 ,280, 80, 300, "black")
+
+def finishedPerseus():
+    generatePerseus()
+    hili1 = Rect(canvas, 340, 140, 360, 200, "light steel blue")
+    hili1 = Rect(canvas, 300, 120, 340, 140, "light steel blue")
+    hili1 = Rect(canvas, 260, 100, 320, 120, "light steel blue")
+    hili1 = Rect(canvas, 260, 60, 280, 100, "light steel blue")
+    hili1 = Rect(canvas, 220, 60, 260, 80, "light steel blue")
+    hili1 = Rect(canvas, 120, 80, 240, 100, "light steel blue")
+    hili1 = Rect(canvas, 60, 60, 120, 80, "light steel blue")
+    hili1 = Rect(canvas, 60, 20, 80, 60, "light steel blue")
+    hili1 = Rect(canvas, 40, 20, 60, 40, "light steel blue")
+    hili1 = Rect(canvas, 20, 40, 40, 100, "light steel blue")
+    hili1 = Rect(canvas, 40, 100, 60, 120, "light steel blue")
+    hili1 = Rect(canvas, 60, 120, 80, 220, "light steel blue")
+    hili1 = Rect(canvas, 80, 220, 160, 240, "light steel blue")
+    hili1 = Rect(canvas, 160, 240, 180, 300, "light steel blue")
+    hili1 = Rect(canvas, 180, 300, 280, 320, "light steel blue")
+    hili1 = Rect(canvas, 260, 320, 280, 340, "light steel blue")
+    hili1 = Rect(canvas, 280, 340, 360, 360, "light steel blue")
+    hili1 = Rect(canvas, 340, 200, 360, 220, "cornsilk")
+    hili1 = Rect(canvas, 340, 120, 360, 140, "antique white")
+    hili1 = Rect(canvas, 100, 80, 120, 100, "ivory")
+    hili1 = Rect(canvas, 20, 20, 40, 40, "cornsilk")
+    hili1 = Rect(canvas, 20, 100, 40, 120, "antique white")
+    hili1 = Rect(canvas, 60, 100, 80, 120, "ivory")
+    hili1 = Rect(canvas, 60, 220, 80, 240, "cornsilk")
+    hili1 = Rect(canvas, 160, 220, 180, 240, "antique white")
+    hili1 = Rect(canvas, 160, 300, 180, 320, "ivory")
+    hili1 = Rect(canvas, 260, 340, 280, 360, "cornsilk")
+
+
+####################################
+# movement
+# default 'move' position
+####################################
+
+def wmove(event):
+    global move
+    global prev_move
+    c = 0
+    for i in range(index):
+        if rect[i].overlap(sprite1) == True:
+            while c < 1:
+                sprite1.down()
+                move = prev_move
+                c += 1
+            print "ya can't do that boi"
+            break
+        else:
+            while c < 1:
+                sprite1.up()
+                prev_move = move
+                move = "w"
+                print "move = {}. \t prev_move = {}.".format(move, prev_move)
+                c += 1
+            print "ya just moved up"
+            break
+
+def amove(event):
+    global move
+    global prev_move
+    c = 0
+    for i in range(28):
+        if rect[i].overlap(sprite1) == True:
+            while c < 1:
+                sprite1.right()
+                move = prev_move
+                c += 1
+            print "ya can't do that boi"
+            break
+        else:
+            while c < 1:
+                sprite1.left()
+                prev_move = move
+                move = "a"
+                print "move = {}. \t prev_move = {}.".format(move, prev_move)
+                c += 1
+            print "ya just moved left"
+            break
+
+def smove(event):
+    global move
+    global prev_move
+    c = 0
+    for i in range(28):
+        if rect[i].overlap(sprite1) == True:
+            while c < 1:
+                sprite1.up()
+                move = prev_move
+                c += 1
+            print "ya can't do that boi"
+            break
+        else:
+            while c < 1:
+                sprite1.down()
+                prev_move = move
+                move = "s"
+                print "move = {}. \t prev_move = {}.".format(move, prev_move)
+                c += 1
+            print "ya just moved down"
+            break
+
+def dmove(event):
+    global move
+    global prev_move
+    c = 0
+    for i in range(28):
+        if rect[i].overlap(sprite1) == True:
+            while c < 1:
+                sprite1.left()
+                move = prev_move
+                c += 1
+            print "ya can't do that boi"
+            break
+        else:
+            while c < 1:
+                sprite1.right()
+                prev_move = move
+                move = "d"
+                print "move = {}. \t prev_move = {}.".format(move, prev_move)
+                c += 1
+            print "ya just moved right"
+            break
+
+            
+####################################
+# binding movement to wasd keys
+# will be different on pi
+
+master.bind("w", wmove)
+master.bind("a", amove)
+master.bind("s", smove)
+master.bind("d", dmove)
+
+####################################
+#              Level 1             #
+generateAries()
+sprite1 = Sprite(canvas, 125, 25, 135, 35)
+S_SPD = 10
+COUNT_LEN = 2
+
+
+# if finished
+# time.sleep(.5)
+# canvas.delete("all")
+
+# ...need to figured out how to load multiple mazes
+
+####################################
+#              Level 2             #
+
+
+####################################
+#              Level 3             #
+
+
+####################################
+#              Level 4             #
+
+
+####################################
+#              Level 5             #
+
+
+####################################
+
+canvas.mainloop()
+
